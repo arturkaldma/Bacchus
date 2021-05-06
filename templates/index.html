@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bacchus</title>
+    <link href="../static/main.css" rel="stylesheet">
+{#    <link href="../static/w3.css" rel="stylesheet">#}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<style>
+    body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
+.bar-block .bar-item {padding:20px}
+</style>
+<body>
+
+<!-- Top Bar-->
+<div class="top">
+    <div class="white xlarge" style="margin:auto;background-color: #00bcd4">
+        <button class="button padding-16 left" type="button" onclick="toggle()">☰</button>
+        <form action="{{ url_for('admin') }}" method="get">
+            <button class="button right padding-16" onclick="toggle()">Admin</button>
+        </form>
+        <div class="center padding-16">Auction Bacchus</div>
+    </div>
+</div>
+
+<!-- Categories-->
+<nav class="animate sidebar bar-block card top" id="sideBar" style="display:none;z-index:2;width:40%;min-width:300px;max-width:350px" >
+    <div id="outer">
+        <button onclick="toggle()" class="inner button xlarge" style="font-size:24px"><i class="fa fa-close"></i></button>
+        <form class="inner" action="{{url_for('getcat')}}" method="POST">
+            <input type="hidden" name="category" value="">
+            <button class="button xlarge" onclick="toggle()" type="submit">Reset</button>
+        </form>
+    </div>
+    {% for item in b %}
+        <form action="{{url_for('getcat')}}" method="POST">
+        <input type="hidden" name="category" value="{{ item }}">
+        <button class="button xlarge" type="submit">{{ item }}</button>
+        </form>
+            {% for it in updated_json %}
+                {% if it.productCategory == item %}
+                    <p style="margin-left:25px;color:grey">{{it.productName}}</p>
+                {% endif %}
+                {% endfor %}
+    {% endfor %}
+</nav>
+
+
+<!-- Product Grid-->
+
+<section class="products">
+        {% if category %}
+            {% for item in updated_json %}
+                {% if item.productCategory == category %}
+                    <div class="bar-block" style="max-width:400px;margin-top:100px">
+                        <h5 style="background-color:#c0c0c0">{{item.productName}}</h5>
+                        <p>{{item.productDescription}}</p>
+                        <p>Time left: {{item.biddingEndDate}}</p>
+                        <form class="center" action="{{url_for('index')}}" method="post">
+                            <td><input class="input border" type="text" placeholder="Full name" name="customer_name" maxlength="150" required></td>
+                            <td><input class="input border" type="number" placeholder="Your bid in EUR" step="0.01" max="999999999" name="bid" required></td>
+                            <td><input type="hidden" name="productId" value="{{ item.productId }} "></td>
+                            <td><button class="button" type="submit">Submit a bid</button></td>
+                        </form>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            {% for item in updated_json %}
+                <div class="bar-block" style="max-width:400px;margin-top:100px">
+                    <h5 class="center" style="background-color: #c0c0c0"><b>{{item.productName}}</b></h5>
+                    <p class=""><b>Description:</b> {{item.productDescription}}</p>
+                    <p class=""><b>Time left:</b> {{item.biddingEndDate}}</p>
+                    <form class="center" action="{{url_for('index')}}" method="post">
+                        <td><input class="input border" type="text" placeholder="Full name" name="customer_name" maxlength="150" required></td>
+                        <td><input class="input border" type="number" placeholder="Your bid in EUR" step="0.01" max="999999999" name="bid" required></td>
+                        <td><input type="hidden" name="productId" value="{{ item.productId }} "></td>
+                        <td><button class=" button" type="submit">Submit a bid</button></td>
+                    </form>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+
+<script>
+// Script to open and close sidebar
+function toggle() {
+    var x = document.getElementById("sideBar");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+
+</script>
+</section>
+</body>
+</html>

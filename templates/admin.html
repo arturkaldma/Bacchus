@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+    <link href="../static/main.css" rel="stylesheet">
+
+</head>
+<body>
+<form action="{{url_for('index')}}" method="get">
+    <button class="button xlarge" onclick="toggle()">Home</button>
+</form>
+{% if ok %}
+    {% for item in ok %}
+        <div style="margin-right: 20px;margin-bottom: 50px">
+            <p>Product: {{ item.product }}</p>
+            <p>Customer: {{ item.customer }}</p>
+            <p>Bid: {{ item.bid }}</p>
+        </div>
+    {% endfor %}
+{% else %}
+    <div>
+    <h3>Login</h3>
+    <div class="box">
+        <form method="POST" action="/admin">
+            <div>
+                <input type="text" name="username" placeholder="Username" autofocus="">
+            </div>
+
+            <div>
+                <input type="password" name="password" placeholder="Password">
+            </div>
+            <button class="button">Login</button>
+        </form>
+    </div>
+    {% endif %}
+</div>
+</body>
+</html>
