@@ -55,8 +55,8 @@
                 {% if item.productCategory == category %}
                     <div class="bar-block" style="max-width:400px;margin-top:100px">
                         <h5 class="center" style="background-color:#c0c0c0">{{item.productName}}</h5>
-                        <p class=""><b>Description:</b> {{item.productDescription}}</p>
-                        <p>Time left: {{item.biddingEndDate}}</p>
+                        <p><b>Description:</b> {{item.productDescription}}</p>
+                        <p><b>Time left:</b> {{item.biddingEndDate}}</p>
                         <form class="center" action="{{url_for('index')}}" method="post">
                             <td><input class="input border" type="text" placeholder="Full name" name="customer_name" maxlength="150" required></td>
                             <td><input class="input border" type="number" placeholder="Your bid in EUR" step="0.01" max="999999999" name="bid" required></td>
@@ -70,8 +70,8 @@
             {% for item in updated_json %}
                 <div class="bar-block" style="max-width:400px;margin-top:100px">
                     <h5 class="center" style="background-color: #c0c0c0"><b>{{item.productName}}</b></h5>
-                    <p class=""><b>Description:</b> {{item.productDescription}}</p>
-                    <p class=""><b>Time left:</b> {{item.biddingEndDate}}</p>
+                    <p><b>Description:</b> {{item.productDescription}}</p>
+                    <p><b>Time left:</b> {{item.biddingEndDate}}</p>
                     <form class="center" action="{{url_for('index')}}" method="post">
                         <td><input class="input border" type="text" placeholder="Full name" name="customer_name" maxlength="150" required></td>
                         <td><input class="input border" type="number" placeholder="Your bid in EUR" step="0.01" max="999999999" name="bid" required></td>
