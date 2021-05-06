@@ -54,7 +54,7 @@
             {% for item in updated_json %}
                 {% if item.productCategory == category %}
                     <div class="bar-block" style="max-width:400px;margin-top:100px">
-                        <h5 style="background-color:#c0c0c0">{{item.productName}}</h5>
+                        <h5 class="center" style="background-color:#c0c0c0">{{item.productName}}</h5>
                         <p>{{item.productDescription}}</p>
                         <p>Time left: {{item.biddingEndDate}}</p>
                         <form class="center" action="{{url_for('index')}}" method="post">
