@@ -15,7 +15,7 @@ def get_info():
     for entry in updated_json:
         datetime_str = entry["biddingEndDate"]
         datetime_object = datetime.strptime(datetime_str, '%Y-%m-%dT%H:%M:%SZ')
-        hours = 3
+        hours = 0
         hours_added = timedelta(hours = hours)
         real_time = (datetime_object + hours_added)
         calculate_time = (real_time - datetime.now())
@@ -59,7 +59,10 @@ class Data(db.Model):
 def index():
     if request.method == 'POST':
         productId = request.form["productId"]
-        customerId = (request.form["customer_name"]).replace(" ", "") + datetime.now().strftime("%d%m%y-%H:%M")
+        hours = 3
+        hours_added = timedelta(hours=hours)
+        real_time = (datetime.now() + hours_added)
+        customerId = (request.form["customer_name"]).replace(" ", "") + real_time.strftime("%d%m%y-%H:%M")
         bid = request.form["bid"]
         data = Data(productId, customerId, bid)
         db.session.add(data)
